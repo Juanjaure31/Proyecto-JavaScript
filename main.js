@@ -390,15 +390,21 @@ function agregarDescripcion(e) {
     // Crear elementos
     const imgElement = document.createElement('img');
     imgElement.src = imageSrc;
+    imgElement.className = "imgDescripcion"
 
     const nombreElement = document.createElement('p');
     nombreElement.innerText = nombreText;
+    nombreElement.className = "nombreDescripcion"
 
     const precioElement = document.createElement('p');
     precioElement.innerText = precioText;
+    precioElement.className = "precioDescripcion"
 
     const cantidadElement = document.createElement('p');
     cantidadElement.innerText = cantidadText;
+    cantidadElement.className = "cantidadDescripcion"
+
+    
 
     // Limpiar el contenedor antes de agregar nuevos elementos
     contenedorDescripcion.innerHTML = '';

@@ -23,6 +23,11 @@
 
         body {
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-y: scroll;
         }
 
         .visible{
@@ -41,15 +46,28 @@
             gap: 6px;
         }
 
-        /* .carrito {
-            width: 400px;
-            max-height: 500px;
-            overflow: auto;
-            position: absolute;
-            top: 20px;
-            right: 18%;
-            background-color: white;
-        } */
+        .imgDescripcion{
+            width: 50%;
+            background-color: aliceblue;
+            border-radius: 50%;
+            box-shadow: 0px 4px 8px rgb(168, 168, 168);
+
+        }
+        .nombreDescripcion {
+            font-weight: bold;
+            font-size: 2.5rem;
+            margin-top: 10px;
+        }
+        .precioDescripcion{
+            font-weight: bold;
+            font-size: 2.5rem;
+            margin-top: 10px;
+        }
+        .cantidadDescripcion{
+            font-size: 1.5rem;
+            margin-top: 10px;
+        }
+
         .cuadrilla{
             display: flex;
             flex-direction: column;
@@ -163,12 +181,10 @@
             </section>
 
             <!-- Pestaña emergente !! Descripción -->
-            <div class="hidden w-[40%] h-[500px] absolute flex bg-slate-500 flex justify-center items-center z-[999]" id="contenedorDescripcion">
-                
+            <div class="hidden w-[50%] h-[70%] absolute inset-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-200 p-4 flex flex-col bg-gradient-to-r from-sky-500 to-indigo-500  flex justify-center items-center z-[999]" id="contenedorDescripcion">
+                            
             </div>  
         </main>
-
-        
 
 
 
