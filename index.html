@@ -57,7 +57,7 @@
             align-items: center;
             min-width: none;
             height: 370px;
-            margin: 20px 0px 20px 0px;
+            margin: 20px;
             padding: 20px;
             box-shadow: 0px 4px 8px rgb(168, 168, 168);
             border-radius: 20px;
@@ -72,12 +72,12 @@
     <body>
         <!-- Barra de navegación -->
         <nav class="flex justify-center items-center w-[100%] h-[80px] bg-slate-400 bg-gradient-to-r from-sky-500 to-indigo-500">
-            <p class="flex justify-center w-[40%]">Hola soy el logo</p>
-            <div class="flex justify-center w-[40%] gap-14 relative">
-                <a class="text-2xl cursor-pointer" id="home">Home</a>
-                <a class="text-2xl cursor-pointer" id="products">Prodcutos</a>
-                <p class="text-2xl cursor-pointer " id="carrito"> Carrito
-                    <div class="carrito w-[350px] h-[500px] absolute top-[20px] right-[17%] bg-white overflow-auto oculto">
+            <div class="flex justify-center items-center w-[40%] gap-6 md:gap-14 relative">
+                <img class="flex justify-center w-[100px]" src="./assets/logo.png">
+                <a class="text-3xl cursor-pointer font-[Roboto]" id="home">Home</a>
+                <a class="text-3xl cursor-pointer font-[Roboto]" id="products">Prodcutos</a>
+                <p class="text-3xl cursor-pointer font-[Roboto]" id="carrito"> Carrito
+                    <div class="carrito w-[350px] h-[500px] absolute top-[40px] end-[-100px] md:end-[-140px] lg:end-[-80px] xl:end-[-30px] 2xl:right-[18%] bg-white overflow-auto oculto">
                     
                     </div>
                 </p>
@@ -85,23 +85,23 @@
             </div>
         </nav>
 
-        <main class="w-[100%] flex flex-col justify-center items-center bg-[url('./assets/backgroundToDoList.svg')]">
+        <main class=" w-[100%]  flex flex-col justify-center items-center bg-[url('./assets/backgroundToDoList.svg')]">
 
             <!-- Banner publicitario -->
-            <section id="seccion1" class="w-[70%]">
+            <section id="seccion1" class="w-[100%] lg:w-[70%] xl:w-[70%] 2xl:w-[80%]">
                 <div class=" w-[100%]">
                     <img class="justify-center items-center w-[100%]" src="./assets/banner 2.webp" alt="">
                 </div>
     
                 <!-- Contenedor de busqueda -->
-                <div class="flex-col gap-10 sm:flex justify-center items-center gap-[100px] bg-slate-400 w-[100%] h-[180px] bg-gradient-to-r from-sky-500 to-indigo-500">
+                <div class="flex flex-col justify-center items-center py-[30px] sm:flex sm:flex-row  md:gap-[100px] bg-slate-400 w-[100%] sm:h-[180px] bg-gradient-to-r from-sky-500 to-indigo-500">
                     <input class="w-[300px] h-[40px] rounded-lg outline-none border-transparent p-4 text-2xl focus:border-red-200" type="text" placeholder="Busca un producto">
-                    <p class="text-2xl flex justify-center items-center flex-col"><span class="font-bold text-4xl">Desea buscar Algun articulo en especifico ? </span> <br> A tu izquierda puedes buscarlo 😉 </p>
+                    <p class="text-2xl flex justify-center items-center flex-col m-8"><span class="font-bold text-3xl md:text-4xl">Desea buscar Algun articulo en especifico ? </span> <br> Escribe el poducto que deseas buscar 😉 </p>
                 </div>
     
-                <h1 class="text-8xl font-bold mt-10 flex justify-center items-center text-white titulo">Estos son algunos de nuestros productos </h1>
+                <h1 class="text-center text-6xl md:text-8xl font-bold  flex justify-center items-center text-white titulo">Estos son algunos de nuestros productos </h1>
 
-                <div class=" w-[100%] grid grid-cols-1 place-content-center gap-12 mt-[30px] sm:grid-cols-4">
+                <div class=" w-[100%] mx-auto grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 place-content-center gap-2 mt-[30px] ">
                     <div class="cuadrilla">
                         <img src="./assets/base.png" class="max-w-60 max-h-60 flex justify-center aling-center">
                         <p class="text-2xl font-bold "> Soporte para portátil ajustable </p>
@@ -155,16 +155,17 @@
             </section>
 
 
-            <section id="seccion2" class=" w-[70%] grid grid-cols-4 place-content-center gap-12 mt-[30px]">
-                <div class=" w-[100%] grid grid-cols-4 place-content-center gap-12 mt-[30px]" id="contenedor">
+            <section id="seccion2" class=" w-[90%] xl:w-[100%] 2xl:w-[90%] grid grid-cols-4 place-content-center gap-12 mt-[30px]">
+                <h1 class="text-center text-6xl md:text-8xl font-bold  flex justify-center items-center text-white titulo">Bienvenido a la sección de productos </h1>
+                <div class=" w-[100%] grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 place-content-center gap-12 xl:gap-4 mt-[30px]" id="contenedor">
                     <!-- Aquí va el contenido de las cuadiculas -->
                 </div>
             </section>
 
             <!-- Pestaña emergente !! Descripción -->
-            <div class="oculto w-[40%] h-[500px] flex justify-center items-center z-[999]" id="contenedorDescripcion">
+            <!-- <div class="oculto w-[40%] h-[500px] flex justify-center items-center z-[999]" id="contenedorDescripcion">
     
-            </div>
+            </div> -->
         </main>
 
         
@@ -172,13 +173,13 @@
 
 
         <!-- Footer -->
-        <footer class="w-[100%] h-[90px] flex justify-center items-center bg-slate-400">
+        <footer class="w-[100%] h-[90px] flex justify-center items-center bg-slate-400  bg-gradient-to-r from-sky-500 to-indigo-500">
             <div class="flex flex-col justify-center items-center w-[50%]">
-                <a href="https://github.com/Juanjaure31">GitHub</a>
-                <a href="#">Instagram</a>
-                <a href="#">Portafolio</a>
+                <a class="text-3xl cursor-pointer font-[Roboto]" href="https://github.com/Juanjaure31">GitHub</a>
+                <a class="text-3xl cursor-pointer font-[Roboto]" href="#">Instagram</a>
+                <a class="text-3xl cursor-pointer font-[Roboto]" href="#">Portafolio</a>
             </div>
-            <p class="w-[50%] flex justify-center items-center">Aquí va el logo</p>
+            <img class="flex justify-center w-[100px]" src="./assets/logo.png">
         </footer>
     </body>
     <script src="./main.js"></script>
