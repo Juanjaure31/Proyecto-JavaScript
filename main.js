@@ -314,7 +314,7 @@ function agregarCarrito(e) {
         nombre: e.target.parentElement.parentElement.querySelector('p:nth-child(2)').innerText,
         precio: e.target.parentElement.parentElement.querySelector('p:nth-child(3)').innerText,
         cantidad: 1,
-        // id: e.target.parentElement.parentElement.querySelector('p:nth-child(6)').getAttribute('data-id')
+        // id: e.target.parentElement.parentElement.querySelector('p:nth-child(6)').innerText
     });
     localStorage.setItem("carrito", JSON.stringify(productosCarrito));
     // console.log(localStorage.getItem("carrito"))
@@ -342,7 +342,6 @@ function agregarCarrito(e) {
         // console.log('Queda igual')
         articulosCarrito = [...cuadrilla, articulosCuadrilla]
     }
-
     // Llamo la funcion carrrito 
     carritoHTML()
 }
@@ -355,7 +354,7 @@ function carritoHTML () {
     const productosCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
     productosCarrito.map(articulo => {
-        const { img, nombre, precio, cantidad } = articulo;
+        const { img, nombre, precio, cantidad, id } = articulo;
         const itemCarrito = document.createElement('div')
         itemCarrito.className = "cuadrillaCarrito"
         itemCarrito.innerHTML = `
@@ -363,42 +362,52 @@ function carritoHTML () {
             <p class="text-lg font-bold max-w-[100px]"> ${nombre} </p>
             <p class="text-lg font-bold max-w-[100px]"> $${precio} </p>
             <p class="text-lg font-bold max-w-[100px]"> Cantidad: ${cantidad} </p>
+            <p class="hidden"> ${id} </ p>
         `
         revelar.appendChild(itemCarrito)
     })        
 }
 const productosDescripcion = [];
 
-function agregarDescripcion (e) {
-    const image = e.target.parentElement.parentElement.querySelector('img:nth-child(1)').src;
-    const nombre = e.target.parentElement.parentElement.querySelector('p:nth-child(2)').innerText;
-    const precio = e.target.parentElement.parentElement.querySelector('p:nth-child(3)').innerText;
-    const cantidad = e.target.parentElement.parentElement.querySelector('p:nth-child(4)').innerText;
-    contenedorDescripcion.appendChild(image);
-    contenedorDescripcion.appendChild(nombre);
-    contenedorDescripcion.appendChild(precio);
-    contenedorDescripcion.appendChild(cantidad);
+function mostrarDescripcion() {
+    if (contenedorDescripcion.classList.contains('hidden')) {
+        contenedorDescripcion.classList.remove('hidden')
+        contenedorDescripcion.classList.add('block')
+    } else {
+        contenedorDescripcion.classList.remove('block')
+        contenedorDescripcion.classList.add('hidden')
+    }
 }
 
-// function mostrarDescripcion() {
-//     productosDescripcion.map(articulo => {
-//         const { img, nombre, precio, cantidad } = articulo;
-//         const itemDescripcion = document.createElement('div')
-//         itemDescripcion.className = "cuadrillaCarrito"
-//         itemDescripcion.innerHTML = `
-//             <img src="${img}" class="max-w-[70px] max-h-[70px] ">
-//             <p class="text-lg font-bold max-w-[100px]"> ${nombre} </p>
-//             <p class="text-lg font-bold max-w-[100px]"> $${precio} </p>
-//             <p class="text-lg font-bold max-w-[100px]"> Cantidad: ${cantidad} </p>
-//         `
-//         revelar.appendChild(itemDescripcion)
-//     }) 
-// }
+function agregarDescripcion(e) {
+    mostrarDescripcion();
 
-function LimpiarHTML () {
-    while(revelar.firstChild){
-        revelar.removeChild(revelar.firstChild)
-    }
+    const imageSrc = e.target.parentElement.parentElement.querySelector('img:nth-child(1)').src;
+    const nombreText = e.target.parentElement.parentElement.querySelector('p:nth-child(2)').innerText;
+    const precioText = e.target.parentElement.parentElement.querySelector('p:nth-child(3)').innerText;
+    const cantidadText = e.target.parentElement.parentElement.querySelector('p:nth-child(4)').innerText;
+
+    // Crear elementos
+    const imgElement = document.createElement('img');
+    imgElement.src = imageSrc;
+
+    const nombreElement = document.createElement('p');
+    nombreElement.innerText = nombreText;
+
+    const precioElement = document.createElement('p');
+    precioElement.innerText = precioText;
+
+    const cantidadElement = document.createElement('p');
+    cantidadElement.innerText = cantidadText;
+
+    // Limpiar el contenedor antes de agregar nuevos elementos
+    contenedorDescripcion.innerHTML = '';
+
+    // Agregar elementos al contenedor
+    contenedorDescripcion.appendChild(imgElement);
+    contenedorDescripcion.appendChild(nombreElement);
+    contenedorDescripcion.appendChild(precioElement);
+    contenedorDescripcion.appendChild(cantidadElement);
 }
 
 const articulos = [];
@@ -414,7 +423,7 @@ function articulosCuadrilla() {
             <p class="text-3xl font-bold mt-[10px]"> $${precio} </p>
             <p class="text-2xl mt-[10px] "> ${descripcion} </p>
             <p class="text-2xl font-bold  mt-[10px]"> Cantidad: ${cantidad} </p>
-            <p data-id="${id}"></p>
+            <p class="hidden"> ${id} </ p>
             <div class="w-[100%] flex justify-center items-center mt-[10px] gap-8">
                 <button onClick="agregarCarrito(event)" class="w-[50%] h-[30px] bg-slate-500 rounded-lg text-xl font-bold text-white" > Agregar al carrito </button> 
                 <button onClick="agregarDescripcion(event)" class="w-[50%] h-[30px] bg-slate-500 rounded-lg  text-xl font-bold text-white"  > Descripción</button>
@@ -425,6 +434,12 @@ function articulosCuadrilla() {
     });
 }
 articulosCuadrilla()
+
+function LimpiarHTML () {
+    while(revelar.firstChild){
+        revelar.removeChild(revelar.firstChild)
+    }
+}
 
 
 
