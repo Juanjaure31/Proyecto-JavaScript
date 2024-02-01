@@ -262,9 +262,7 @@ const productos = [
 let contenedor = document.getElementById('contenedor');
 const revelar = document.querySelector('.carrito');
 const contenedorDescripcion = document.getElementById('contenedorDescripcion');
-document.querySelector('.descripcion').addEventListener('click', (e) => {
-    e.target
-});
+// document.querySelector('.descripcion').addEventListener('click', agregarDescripcion);
 document.getElementById('carrito').addEventListener('click', mostraQuitar);
 const productosCarrito = [];
 
@@ -322,6 +320,8 @@ function agregarCarrito(e) {
     // console.log(localStorage.getItem("carrito"))
 
     console.log(productosCarrito)
+
+    // funcion para incrementar la cantidad
     const existe = productosCarrito.some( item => item.id === productosCarrito.id );
 
     if(existe) {
@@ -348,8 +348,10 @@ function agregarCarrito(e) {
 }
 
 function carritoHTML () {
+
+    //llamo a la funcion para limpiar el html del carrrito
     LimpiarHTML()
-    // Obtén los productos del carrito desde el almacenamiento local
+    // Obtengo los productos del carrito desde el almacenamiento local
     const productosCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
     productosCarrito.map(articulo => {
