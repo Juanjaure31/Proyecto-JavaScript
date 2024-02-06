@@ -23,11 +23,11 @@
 
         body {
             width: 100%;
+            height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            overflow-y: scroll;
         }
 
         .visible{
@@ -44,27 +44,44 @@
             align-items: center;
             margin-top: 20px;
             gap: 6px;
+            background-image: url(./assets/Moon.svg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
         }
 
         .imgDescripcion{
-            width: 50%;
+            width: 30%;
             background-color: aliceblue;
             border-radius: 50%;
             box-shadow: 0px 4px 8px rgb(168, 168, 168);
-
         }
         .nombreDescripcion {
             font-weight: bold;
             font-size: 2.5rem;
             margin-top: 10px;
+            color: white;
         }
         .precioDescripcion{
             font-weight: bold;
             font-size: 2.5rem;
             margin-top: 10px;
+            color: white;
         }
         .cantidadDescripcion{
             font-size: 1.5rem;
+            margin-top: 10px;
+            color: white;
+        }
+        .btnDescripción {
+            width: 30%;
+            height: 40px;
+            background-color:  slategray;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgb(168, 168, 168);
             margin-top: 10px;
         }
 
@@ -89,13 +106,13 @@
     </style>
     <body>
         <!-- Barra de navegación -->
-        <nav class="flex justify-center items-center w-[100%] h-[80px] bg-slate-400 bg-gradient-to-r from-sky-500 to-indigo-500">
+        <nav class="flex justify-center items-center w-[100%] h-[80px] bg-gradient-to-t from-sky-900 to-blue-950">
             <div class="flex justify-center items-center w-[40%] gap-6 md:gap-14 relative">
                 <img class="flex justify-center w-[100px]" src="./assets/logo.png">
-                <a class="text-3xl cursor-pointer font-[Roboto]" id="home">Home</a>
-                <a class="text-3xl cursor-pointer font-[Roboto]" id="products">Prodcutos</a>
-                <p class="text-3xl cursor-pointer font-[Roboto]" id="carrito"> Carrito
-                    <div class="carrito w-[350px] h-[500px] absolute top-[40px] end-[-100px] md:end-[-140px] lg:end-[-80px] xl:end-[-30px] 2xl:right-[18%] bg-white overflow-auto oculto">
+                <a class="text-3xl text-white cursor-pointer font-[Roboto]  hover:scale-105 hover:text-slate-200 hover:bg-black p-2 rounded-lg " id="home">Home</a>
+                <a class="text-3xl text-white cursor-pointer font-[Roboto] hover:scale-105 hover:text-slate-200 hover:bg-black p-2 rounded-lg " id="products">Prodcutos</a>
+                <p class="text-3xl text-white cursor-pointer font-[Roboto] hover:scale-105 hover:text-slate-200 hover:bg-black p-2 rounded-lg " id="carrito"> Carrito
+                    <div class="bg-[url('./assets/Moon.svg')] carrito w-[350px] h-[500px] absolute top-[40px] end-[-100px] md:end-[-140px] lg:end-[-80px] xl:end-[-30px] 2xl:right-[18%] bg-white overflow-auto oculto">
                     
                     </div>
                 </p>
@@ -103,7 +120,7 @@
             </div>
         </nav>
 
-        <main class=" w-[100%]  flex flex-col justify-center items-center bg-[url('./assets/backgroundToDoList.svg')]">
+        <main class=" w-[100%] flex flex-col justify-center items-center bg-[url('./assets/background.svg')]" id="principal">
 
             <!-- Banner publicitario -->
             <section id="seccion1" class="w-[100%] lg:w-[70%] xl:w-[70%] 2xl:w-[80%]">
@@ -112,9 +129,9 @@
                 </div>
     
                 <!-- Contenedor de busqueda -->
-                <div class="flex flex-col justify-center items-center py-[30px] sm:flex sm:flex-row  md:gap-[100px] bg-slate-400 w-[100%] sm:h-[180px] bg-gradient-to-r from-sky-500 to-indigo-500">
+                <div class="flex flex-col justify-center items-center py-[30px] sm:flex sm:flex-row  md:gap-[100px] bg-slate-400 w-[100%] sm:h-[180px] bg-gradient-to-t from-sky-900 to-blue-950 rounded-lg shadow-md shadow-slate-700">
                     <input class="w-[300px] h-[40px] rounded-lg outline-none border-transparent p-4 text-2xl focus:border-red-200" type="text" placeholder="Busca un producto">
-                    <p class="text-2xl flex justify-center items-center flex-col m-8"><span class="font-bold text-3xl md:text-4xl">Desea buscar Algun articulo en especifico ? </span> <br> Escribe el poducto que deseas buscar 😉 </p>
+                    <p class="text-2xl flex justify-center items-center flex-col text-white m-8"><span class="font-bold text-white text-3xl md:text-4xl">Desea buscar Algun articulo en especifico ? </span> <br> Escribe el poducto que deseas buscar 😉 </p>
                 </div>
     
                 <h1 class="text-center text-6xl md:text-8xl font-bold  flex justify-center items-center text-white titulo">Estos son algunos de nuestros productos </h1>
@@ -127,8 +144,8 @@
                         <p class="text-2xl mt-[10px] "> Soporte ergonómico para portátil con ajustes de altura y ángulo para una postura cómoda. </p>
                         <p class="text-2xl font-bold  mt-[10px]"> Cantidad: 40 </p>
                         <div class="w-[100%] flex justify-center items-center mt-[10px] gap-8">
-                            <button onClick="agregarCarrito(event)" class="w-[50%] h-[30px] bg-slate-500 rounded-lg text-xl font-bold text-white" > Agregar al carrito </button> 
-                            <button onClick="agregarDescripcion(event)" class="w-[50%] h-[30px] bg-slate-500 rounded-lg  text-xl font-bold text-white descripcion"> Descripción</button>
+                            <button onClick="agregarCarrito(event)" class="w-[50%] h-[30px] bg-slate-500 rounded-lg text-xl font-bold text-white  hover:scale-105 hover:bg-slate-600" > Agregar al carrito </button> 
+                            <button onClick="agregarDescripcion(event)" class="w-[50%] h-[30px] bg-slate-500 rounded-lg  text-xl font-bold text-white descripcion  hover:scale-105 hover:bg-slate-600"> Descripción</button>
                         </div>
                     </div>
 
@@ -139,8 +156,8 @@
                         <p class="text-2xl mt-[10px] "> Mochila con diseño antirrobo y puerto USB para cargar dispositivos electrónicos. </p>
                         <p class="text-2xl font-bold  mt-[10px]"> Cantidad: 30 </p>
                         <div class="w-[100%] flex justify-center items-center mt-[10px] gap-8">
-                            <button onClick="agregarCarrito(event)" class="w-[50%] h-[30px] bg-slate-500 rounded-lg text-xl font-bold text-white" > Agregar al carrito </button> 
-                            <button onClick="agregarDescripcion(event)" class="w-[50%] h-[30px] bg-slate-500 rounded-lg  text-xl font-bold text-white descripcion" > Descripción</button>
+                            <button onClick="agregarCarrito(event)" class="w-[50%] h-[30px] bg-slate-500 rounded-lg text-xl font-bold text-white  hover:scale-105 hover:bg-slate-600" > Agregar al carrito </button> 
+                            <button onClick="agregarDescripcion(event)" class="w-[50%] h-[30px] bg-slate-500 rounded-lg  text-xl font-bold text-white descripcion  hover:scale-105 hover:bg-slate-600" > Descripción</button>
                         </div>
                     </div>
 
@@ -151,8 +168,8 @@
                         <p class="text-2xl mt-[10px] "> Cámara de vigilancia con detección de movimiento y capacidad de transmisión en tiempo real. </p>
                         <p class="text-2xl font-bold  mt-[10px]"> Cantidad: 35 </p>
                         <div class="w-[100%] flex justify-center items-center mt-[10px] gap-8">
-                            <button onClick="agregarCarrito(event)" class="w-[50%] h-[30px] bg-slate-500 rounded-lg text-xl font-bold text-white" > Agregar al carrito </button> 
-                            <button onClick="agregarDescripcion(event)" class="w-[50%] h-[30px] bg-slate-500 rounded-lg  text-xl font-bold text-white descripcion" > Descripción</button>
+                            <button onClick="agregarCarrito(event)" class="w-[50%] h-[30px] bg-slate-500 rounded-lg text-xl font-bold text-white  hover:scale-105 hover:bg-slate-600" > Agregar al carrito </button> 
+                            <button onClick="agregarDescripcion(event)" class="w-[50%] h-[30px] bg-slate-500 rounded-lg  text-xl font-bold text-white descripcion  hover:scale-105 hover:bg-slate-600" > Descripción</button>
                         </div>
                     </div>
 
@@ -163,8 +180,8 @@
                         <p class="text-2xl mt-[10px] "> Altavoces inalámbricos compactos con sonido potente y batería de larga duración. </p>
                         <p class="text-2xl font-bold  mt-[10px]"> Cantidad: 60 </p>
                         <div class="w-[100%] flex justify-center items-center mt-[10px] gap-8">
-                            <button onClick="agregarCarrito(event)" class="w-[50%] h-[30px] bg-slate-500 rounded-lg text-xl font-bold text-white" > Agregar al carrito </button> 
-                            <button onClick="agregarDescripcion(event)" class=" w-[50%] h-[30px] bg-slate-500 rounded-lg  text-xl font-bold text-white descripcion" > Descripción</button>
+                            <button onClick="agregarCarrito(event)" class="w-[50%] h-[30px] bg-slate-500 rounded-lg text-xl font-bold text-white  hover:scale-105 hover:bg-slate-600" > Agregar al carrito </button> 
+                            <button onClick="agregarDescripcion(event)" class=" w-[50%] h-[30px] bg-slate-500 rounded-lg  text-xl font-bold text-white descripcion  hover:scale-105 hover:bg-slate-600" > Descripción</button>
                         </div>
                     </div>
                 </div>    
@@ -180,20 +197,19 @@
                 </div>
             </section>
 
-            <!-- Pestaña emergente !! Descripción -->
-            <div class="hidden w-[50%] h-[70%] absolute inset-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-200 p-4 flex flex-col bg-gradient-to-r from-sky-500 to-indigo-500  flex justify-center items-center z-[999]" id="contenedorDescripcion">
-                            
-            </div>  
         </main>
-
+        <!-- Pestaña emergente !! Descripción -->
+        <div class="hidden w-[70%] lg:w-[60%] 2xl:w-[40%] h-[50%] bg-[url('./assets/background.svg')] rounded-2xl shadow-lg shadow-slate-300    fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-200 p-4 flex flex-col flex justify-center items-center z-[999] z-10 p-8 bg-white" id="contenedorDescripcion">
+                        
+        </div>  
 
 
         <!-- Footer -->
-        <footer class="w-[100%] h-[90px] flex justify-center items-center bg-slate-400  bg-gradient-to-r from-sky-500 to-indigo-500">
-            <div class="flex flex-col justify-center items-center w-[50%]">
-                <a class="text-3xl cursor-pointer font-[Roboto]" href="https://github.com/Juanjaure31">GitHub</a>
-                <a class="text-3xl cursor-pointer font-[Roboto]" href="#">Instagram</a>
-                <a class="text-3xl cursor-pointer font-[Roboto]" href="#">Portafolio</a>
+        <footer class="w-[100%] h-[100px] flex justify-center items-center bg-gradient-to-b from-sky-900 to-blue-950 rounded-lg">
+            <div class="flex flex-col md:flex-row justify-center items-center w-[50%] md:gap-12">
+                <a class="text-3xl cursor-pointer font-[Roboto] text-white hover:scale-105 hover:text-slate-200 hover:bg-black p-2 rounded-lg " href="https://github.com/Juanjaure31">GitHub</a>
+                <a class="text-3xl cursor-pointer font-[Roboto] text-white hover:scale-105 hover:text-slate-200 hover:bg-black p-2 rounded-lg " href="#">Instagram</a>
+                <a class="text-3xl cursor-pointer font-[Roboto] text-white hover:scale-105 hover:text-slate-200 hover:bg-black p-2 rounded-lg " href="#">Portafolio</a>
             </div>
             <img class="flex justify-center w-[100px]" src="./assets/logo.png">
         </footer>
