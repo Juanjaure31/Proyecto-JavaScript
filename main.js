@@ -259,16 +259,18 @@ const productos = [
 ]
 
 // Variables !!}
+const contenedorCarrito = document.getElementById('contenedorCarrito')
+document.getElementById('vaciar').addEventListener('click', vaciarCarrito)
 const principal = document.getElementById('principal')
 let contenedor = document.getElementById('contenedor');
 const revelar = document.querySelector('.carrito');
 const contenedorDescripcion = document.getElementById('contenedorDescripcion');
-// document.querySelector('.descripcion').addEventListener('click', agregarDescripcion);
 document.getElementById('carrito').addEventListener('click', mostraQuitar);
-const productosCarrito = [];
+let productosCarrito = [];
 let contador = 1;
 
 // Funciones !!
+
 
 function mostrarSeccion(id) {
     const secciones = document.querySelectorAll('main section');
@@ -321,56 +323,28 @@ function mostraQuitar() {
 
 // Función para agregar elementos al carrito !!
 
-// function agregarCarrito(e) {
-//     const existe = productosCarrito.some((item) => {
-//         item.nombre === document.querySelector(`#nombre-${e.target.id}`).innerText
-//     }) 
-//     // console.table(productosCarrito)
-//     if (!existe) {
-//         // console.log(document.querySelector(`#nombre-${e.target.id}`).innerText)
-//         productosCarrito.push({
-//             img: e.target.parentElement.parentElement.querySelector('img:nth-child(1)').src,
-//             nombre: e.target.parentElement.parentElement.querySelector('p:nth-child(2)').innerText,
-//             precio: e.target.parentElement.parentElement.querySelector('p:nth-child(3)').innerText,
-//             cantidad: 1,
-//         });
-//         localStorage.setItem("carrito", JSON.stringify(productosCarrito));
-//         // console.log(localStorage.getItem("carrito"))
-
-//         // console.log(productosCarrito)
-//     } else {
-//         let temporal = productosCarrito.find(
-//             (item) => {
-//                 item.nombre === document.querySelector(`#nombre-${e.target.id}`).innerText
-//             }
-//         )
-//         const indiceProducto = productosCarrito.findIndex((producto) => { producto === temporal })
-//         console.log(indiceProducto)
-//         // productos[temporal]
-//         // temporal.cantidad+=1
-//     }
-// }
-
 function agregarCarrito(e) {
     productosCarrito.push({
         img: e.target.parentElement.parentElement.querySelector('img:nth-child(1)').src,
         nombre: e.target.parentElement.parentElement.querySelector('p:nth-child(2)').innerText,
         precio: e.target.parentElement.parentElement.querySelector('p:nth-child(3)').innerText,
         cantidad: 1,
-        // id: e.target.parentElement.parentElement.querySelector('p:nth-child(6)').innerText
+        id: e.target.parentElement.parentElement.querySelector('img:nth-child(1)').getAttribute('data-id')
     });
+    console.log(e.target.id)
     localStorage.setItem("carrito", JSON.stringify(productosCarrito));
     // console.log(localStorage.getItem("carrito"))
 
     console.log(productosCarrito)
 
     // funcion para incrementar la cantidad
-    const existe = productosCarrito.some( item => item.id === productosCarrito.id );
+    const existe = productosCarrito.some( item => item.id === productos.id );
+    console.log(existe)
 
     if(existe) {
         // Atualizo la cantidad
         const items = productosCarrito.map(item => {
-            if( item.id ===  productosCarrito.id ) {
+            if( item.id ===  productos.id ) {
                 // console.log('Se incrementa')
                 LimpiarHTML()
                 item.cantidad++
@@ -379,11 +353,11 @@ function agregarCarrito(e) {
                 return item // retorna los obejtos que no son duplicados 
             }
         } );
-        articulosCarrito = [...items]
+        productosCarrito = [...items]
     } else {
         // Agregamos curso al carrito 
         // console.log('Queda igual')
-        articulosCarrito = [...cuadrilla, articulosCuadrilla]
+        productosCarrito = [...productosCarrito]
     }
     // Llamo la funcion carrrito 
     carritoHTML()
@@ -401,22 +375,37 @@ function carritoHTML() {
         const itemCarrito = document.createElement('div');
         itemCarrito.className = "cuadrillaCarrito";
         itemCarrito.innerHTML = `
-                <img src="${img}" class="max-w-[70px] max-h-[70px] ">
+                <img src="${img}" class="max-w-[70px] max-h-[70px] bg-gradient-to-t from-sky-900 to-blue-950 rounded-full ">
                 <p class="text-lg font-bold max-w-[100px]"> ${nombre} </p>
                 <p class="text-lg font-bold max-w-[100px]"> $${precio} </p>
-                <p class="text-lg font-bold max-w-[100px]"> Cantidad: ${cantidad} </p>
+                <p class="text-lg font-bold max-w-[100px]"> ${cantidad} </p>
+                <p class="w-[20px] h-[20px] flex justify-center items-center font-bold bg-red-700 rounded-full ">X</p>
                 <p class="hidden"> ${id} </ p>
             `
-        revelar.appendChild(itemCarrito)
+    
+        contenedorCarrito.appendChild(itemCarrito)
+
+        document.addEventListener('DOMContentLoaded', () => {
+            productosCarrito.JSON.parse(localStorage.getItem('carrito'))
+        })
     })
 }
-const productosDescripcion = [];
+
+function vaciarCarrito() {
+    productosCarrito = [];
+    LimpiarHTML()
+}
 
 function mostrarDescripcion() {
     if (contenedorDescripcion.classList.contains('hidden')) {
         contenedorDescripcion.classList.remove('hidden');
         contenedorDescripcion.classList.add('block');
     }
+}
+
+function cerrarDescripcion() {
+    contenedorDescripcion.classList.remove('block');
+    contenedorDescripcion.classList.add('hidden');
 }
 
 function agregarBlur() {
@@ -429,10 +418,6 @@ function cerrarBlur() {
     principal.classList.remove('blur-sm')
 }
 
-function cerrarDescripcion() {
-    contenedorDescripcion.classList.remove('block');
-    contenedorDescripcion.classList.add('hidden');
-}
 
 
 
@@ -488,12 +473,11 @@ function articulosCuadrilla() {
         const cuadrilla = document.createElement('div');
         cuadrilla.className = "cuadrilla";
         cuadrilla.innerHTML = `
-                <img src="${img}" class="max-w-60 max-h-60 flex justify-center aling-center">
+                <img src="${img}" data-id="${id}" class="max-w-60 max-h-60 flex justify-center aling-center">
                 <p class="text-2xl font-bold " id="nombre-${contador}"> ${nombre} </p>
                 <p class="text-3xl font-bold mt-[10px]"> $${precio} </p>
                 <p class="text-2xl mt-[10px] "> ${descripcion} </p>
                 <p class="text-2xl font-bold  mt-[10px]"> Cantidad: ${cantidad} </p>
-                <p class="hidden"> ${id} </ p>
                 <div class="w-[100%] flex justify-center items-center mt-[10px] gap-8">
                     <button onClick="agregarCarrito(event)" id="${contador}" class="w-[50%] h-[30px] bg-slate-500 rounded-lg text-xl font-bold text-white hover:scale-105 hover:bg-slate-600" > Agregar al carrito </button> 
                     <button onClick="agregarDescripcion(event)" class="w-[50%] h-[30px] bg-slate-500 rounded-lg  text-xl font-bold text-white  hover:scale-105 hover:bg-slate-600"  > Descripción</button>
@@ -506,8 +490,8 @@ function articulosCuadrilla() {
 articulosCuadrilla()
 
 function LimpiarHTML() {
-    while (revelar.firstChild) {
-        revelar.removeChild(revelar.firstChild)
+    while (contenedorCarrito.firstChild) {
+        contenedorCarrito.removeChild(contenedorCarrito.firstChild)
     }
 }
 

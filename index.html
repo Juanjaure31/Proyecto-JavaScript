@@ -11,9 +11,9 @@
 </head>
     <style>
         *{
-        margin: 0px;
-        top: 0px;
-        box-sizing: border-box;
+            margin: 0px;
+            top: 0px;
+            box-sizing: border-box;
         }
         
         html{
@@ -41,13 +41,22 @@
         .cuadrillaCarrito {
             display: flex;
             justify-content: center;
+            justify-content: space-between;
             align-items: center;
             margin-top: 20px;
             gap: 6px;
-            background-image: url(./assets/Moon.svg);
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
+            background-color: aliceblue;
+            padding: 6px 0px 6px 0px ;
+            border-radius: 8px;
+            padding: 4px;
+        }
+        .overflow-auto::-webkit-scrollbar {
+            width: 5px; /* Oculta la barra de desplazamiento en navegadores webkit */
+        }
+
+        .overflow-auto::-webkit-scrollbar-thumb {
+            background-color: #222222; 
+            border-radius: 2.5px; 
         }
 
         .imgDescripcion{
@@ -76,7 +85,9 @@
         .btnDescripción {
             width: 30%;
             height: 40px;
-            background-color:  slategray;
+            background-color:  #FBF9F1;
+            font-size: 1.8rem;
+            font-weight: bold;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -106,14 +117,23 @@
     </style>
     <body>
         <!-- Barra de navegación -->
-        <nav class="flex justify-center items-center w-[100%] h-[80px] bg-gradient-to-t from-sky-900 to-blue-950">
+        <nav class="flex justify-center fixed top-0 bg-transparent items-center w-[100%] h-[80px] bg-gradient-to-t from-sky-900 to-blue-950">
             <div class="flex justify-center items-center w-[40%] gap-6 md:gap-14 relative">
                 <img class="flex justify-center w-[100px]" src="./assets/logo.png">
                 <a class="text-3xl text-white cursor-pointer font-[Roboto]  hover:scale-105 hover:text-slate-200 hover:bg-black p-2 rounded-lg " id="home">Home</a>
                 <a class="text-3xl text-white cursor-pointer font-[Roboto] hover:scale-105 hover:text-slate-200 hover:bg-black p-2 rounded-lg " id="products">Prodcutos</a>
                 <p class="text-3xl text-white cursor-pointer font-[Roboto] hover:scale-105 hover:text-slate-200 hover:bg-black p-2 rounded-lg " id="carrito"> Carrito
-                    <div class="bg-[url('./assets/Moon.svg')] carrito w-[350px] h-[500px] absolute top-[40px] end-[-100px] md:end-[-140px] lg:end-[-80px] xl:end-[-30px] 2xl:right-[18%] bg-white overflow-auto oculto">
-                    
+                    <div class="bg-gradient-to-b from-sky-900 to-blue-950 w-[350px] h-[500px] absolute top-[40px] end-[-100px] md:end-[-140px] lg:end-[-80px] xl:end-[-30px] 2xl:right-[18%] bg-white carrito oculto p-4">
+                        <div class="flex justify-center items-center h-[20px]">
+                            <p class="text-xl font-bold w-[25%] text-center text-white">Articulo</p>
+                            <p class="text-xl font-bold w-[25%] text-center text-white ml-12">Nombre</p>
+                            <p class="text-xl font-bold w-[25%] text-center text-white ml-12">Precio</p>
+                            <p class="text-xl font-bold w-[25%] text-center text-white">Cantidad</p>
+                        </div>
+                        <div class="h-[80%] overflow-auto mt-4 mb-10" id="contenedorCarrito">
+                            
+                        </div>
+                        <button class="w-[100%] h-[40px] bg-slate-200 rounded-xl hover:bg-slate-400 text-xl font-bold" id="vaciar">Vaciar carrito</button>
                     </div>
                 </p>
                 
@@ -123,15 +143,9 @@
         <main class=" w-[100%] flex flex-col justify-center items-center bg-[url('./assets/background.svg')]" id="principal">
 
             <!-- Banner publicitario -->
-            <section id="seccion1" class="w-[100%] lg:w-[70%] xl:w-[70%] 2xl:w-[80%]">
+            <section id="seccion1" class="w-[100%] lg:w-[70%] xl:w-[70%] 2xl:w-[80%] mt-[80px]">
                 <div class=" w-[100%]">
                     <img class="justify-center items-center w-[100%]" src="./assets/banner 2.webp" alt="">
-                </div>
-    
-                <!-- Contenedor de busqueda -->
-                <div class="flex flex-col justify-center items-center py-[30px] sm:flex sm:flex-row  md:gap-[100px] bg-slate-400 w-[100%] sm:h-[180px] bg-gradient-to-t from-sky-900 to-blue-950 rounded-lg shadow-md shadow-slate-700">
-                    <input class="w-[300px] h-[40px] rounded-lg outline-none border-transparent p-4 text-2xl focus:border-red-200" type="text" placeholder="Busca un producto">
-                    <p class="text-2xl flex justify-center items-center flex-col text-white m-8"><span class="font-bold text-white text-3xl md:text-4xl">Desea buscar Algun articulo en especifico ? </span> <br> Escribe el poducto que deseas buscar 😉 </p>
                 </div>
     
                 <h1 class="text-center text-6xl md:text-8xl font-bold  flex justify-center items-center text-white titulo">Estos son algunos de nuestros productos </h1>
@@ -190,8 +204,13 @@
             </section>
 
 
-            <section id="seccion2" class=" w-[90%] xl:w-[100%] 2xl:w-[90%] grid grid-cols-4 place-content-center gap-12 mt-[30px]">
+            <section id="seccion2" class=" w-[90%] xl:w-[100%] 2xl:w-[90%] grid grid-cols-4 place-content-center gap-12 mt-[30px] mt-[90px]">
                 <h1 class="text-center text-6xl md:text-8xl font-bold  flex justify-center items-center text-white titulo">Bienvenido a la sección de productos </h1>
+                <!-- Contenedor de busqueda -->
+                <div class="flex flex-col justify-center items-center py-[30px] sm:flex sm:flex-row  md:gap-[100px] w-[100%] sm:h-[180px] bg-gradient-to-t from-sky-900 to-blue-950 rounded-lg shadow-md shadow-slate-700">
+                    <input id="input" class="w-[300px] h-[40px] rounded-lg outline-none border-transparent p-4 text-2xl focus:border-red-200" type="text" placeholder="Busca un producto">
+                    <p class="text-2xl flex justify-center items-center flex-col text-white m-8"><span class="font-bold text-white text-3xl md:text-4xl">Desea buscar Algun articulo en especifico ? </span> <br> Escribe el poducto que deseas buscar 😉 </p>
+                </div>
                 <div class=" w-[100%] grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 place-content-center gap-12 xl:gap-4 mt-[30px]" id="contenedor">
                     <!-- Aquí va el contenido de las cuadiculas -->
                 </div>
@@ -199,7 +218,7 @@
 
         </main>
         <!-- Pestaña emergente !! Descripción -->
-        <div class="hidden w-[70%] lg:w-[60%] 2xl:w-[40%] h-[50%] bg-[url('./assets/background.svg')] rounded-2xl shadow-lg shadow-slate-300    fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-200 p-4 flex flex-col flex justify-center items-center z-[999] z-10 p-8 bg-white" id="contenedorDescripcion">
+        <div class="animate-rotate-x hidden w-[70%] lg:w-[60%] 2xl:w-[40%] h-[50%] bg-[url('./assets/background.svg')] rounded-2xl shadow-lg shadow-slate-300 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-200 p-4 flex flex-col flex justify-center items-center z-[999] z-10 p-8 bg-white" id="contenedorDescripcion">
                         
         </div>  
 
