@@ -37,6 +37,19 @@
         .oculto{
             display: none;
         }
+        .cuadrillaFactura {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            gap: 6px;
+            background-color: aliceblue;
+            padding: 6px 0px 6px 0px ;
+            border-radius: 8px;
+            padding: 4px;
+        }
 
         .cuadrillaCarrito {
             display: flex;
@@ -121,18 +134,19 @@
             <div class="flex justify-center items-center w-[40%] gap-6 md:gap-14 relative">
                 <img class="flex justify-center w-[100px]" src="./assets/logo.png">
                 <a class="text-3xl text-white cursor-pointer font-[Roboto]  hover:scale-105 hover:text-slate-200 hover:bg-black p-2 rounded-lg " id="home">Home</a>
-                <a class="text-3xl text-white cursor-pointer font-[Roboto] hover:scale-105 hover:text-slate-200 hover:bg-black p-2 rounded-lg " id="products">Prodcutos</a>
+                <a class="text-3xl text-white cursor-pointer font-[Roboto] hover:scale-105 hover:text-slate-200 hover:bg-black p-2 rounded-lg " id="products">Productos</a>
                 <p class="text-3xl text-white cursor-pointer font-[Roboto] hover:scale-105 hover:text-slate-200 hover:bg-black p-2 rounded-lg " id="carrito"> Carrito
-                    <div class="bg-gradient-to-b from-sky-900 to-blue-950 w-[350px] h-[500px] absolute top-[40px] end-[-100px] md:end-[-140px] lg:end-[-80px] xl:end-[-30px] 2xl:right-[18%] bg-white carrito oculto p-4">
+                    <div class="bg-gradient-to-b from-sky-900 to-blue-950 w-[380px] h-[540px] absolute top-[40px] end-[-100px] md:end-[-140px] lg:end-[-80px] xl:end-[-30px] 2xl:right-[18%] bg-white carrito oculto p-4">
                         <div class="flex justify-center items-center h-[20px]">
                             <p class="text-xl font-bold w-[25%] text-center text-white">Articulo</p>
                             <p class="text-xl font-bold w-[25%] text-center text-white ml-12">Nombre</p>
                             <p class="text-xl font-bold w-[25%] text-center text-white ml-12">Precio</p>
                             <p class="text-xl font-bold w-[25%] text-center text-white">Cantidad</p>
                         </div>
-                        <div class="h-[80%] overflow-auto mt-4 mb-10" id="contenedorCarrito">
-                            
+                        <div class="h-[70%] overflow-auto mt-4 mb-10" id="contenedorCarrito">
+                            <!-- Aquí se colocan los datos del carrito ! -->
                         </div>
+                        <button class="bg-green-700/70 w-[100%] h-[40px] rounded-xl font-bold mb-4 text-2xl text-white" id="pagar" disabled>Realizar compra</button>
                         <button class="w-[100%] h-[40px] bg-slate-200 rounded-xl hover:bg-slate-400 text-xl font-bold" id="vaciar">Vaciar carrito</button>
                     </div>
                 </p>
@@ -152,15 +166,12 @@
 
                 <div class=" w-[100%] mx-auto grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 place-content-center gap-2 mt-[30px] ">
                     <div class="cuadrilla">
-                        <img src="./assets/base.png" class="max-w-60 max-h-60 flex justify-center aling-center">
+                        <img src="./assets/base.png" class="max-w-60 max-h-52 flex justify-center aling-center">
                         <p class="text-2xl font-bold "> Soporte para portátil ajustable </p>
                         <p class="text-3xl font-bold mt-[10px]"> $34.99  </p>
                         <p class="text-2xl mt-[10px] "> Soporte ergonómico para portátil con ajustes de altura y ángulo para una postura cómoda. </p>
                         <p class="text-2xl font-bold  mt-[10px]"> Cantidad: 40 </p>
-                        <div class="w-[100%] flex justify-center items-center mt-[10px] gap-8">
-                            <button onClick="agregarCarrito(event)" class="w-[50%] h-[30px] bg-slate-500 rounded-lg text-xl font-bold text-white  hover:scale-105 hover:bg-slate-600" > Agregar al carrito </button> 
-                            <button onClick="agregarDescripcion(event)" class="w-[50%] h-[30px] bg-slate-500 rounded-lg  text-xl font-bold text-white descripcion  hover:scale-105 hover:bg-slate-600"> Descripción</button>
-                        </div>
+                        <button onClick="agregarDescripcion(event)" class="w-[70%] h-[60px] bg-slate-500 rounded-lg mt-4  text-xl font-bold text-white descripcion  hover:scale-105 hover:bg-slate-600"> Descripción</button>
                     </div>
 
                     <div class="cuadrilla">
@@ -169,10 +180,8 @@
                         <p class="text-3xl font-bold mt-[10px]"> $39.99 </p>
                         <p class="text-2xl mt-[10px] "> Mochila con diseño antirrobo y puerto USB para cargar dispositivos electrónicos. </p>
                         <p class="text-2xl font-bold  mt-[10px]"> Cantidad: 30 </p>
-                        <div class="w-[100%] flex justify-center items-center mt-[10px] gap-8">
-                            <button onClick="agregarCarrito(event)" class="w-[50%] h-[30px] bg-slate-500 rounded-lg text-xl font-bold text-white  hover:scale-105 hover:bg-slate-600" > Agregar al carrito </button> 
-                            <button onClick="agregarDescripcion(event)" class="w-[50%] h-[30px] bg-slate-500 rounded-lg  text-xl font-bold text-white descripcion  hover:scale-105 hover:bg-slate-600" > Descripción</button>
-                        </div>
+                        <button onClick="agregarDescripcion(event)" class="w-[70%] h-[60px] bg-slate-500 rounded-lg mt-4  text-xl font-bold text-white descripcion  hover:scale-105 hover:bg-slate-600"> Descripción</button>
+
                     </div>
 
                     <div class="cuadrilla">
@@ -181,10 +190,8 @@
                         <p class="text-3xl font-bold mt-[10px]"> $89.99 </p>
                         <p class="text-2xl mt-[10px] "> Cámara de vigilancia con detección de movimiento y capacidad de transmisión en tiempo real. </p>
                         <p class="text-2xl font-bold  mt-[10px]"> Cantidad: 35 </p>
-                        <div class="w-[100%] flex justify-center items-center mt-[10px] gap-8">
-                            <button onClick="agregarCarrito(event)" class="w-[50%] h-[30px] bg-slate-500 rounded-lg text-xl font-bold text-white  hover:scale-105 hover:bg-slate-600" > Agregar al carrito </button> 
-                            <button onClick="agregarDescripcion(event)" class="w-[50%] h-[30px] bg-slate-500 rounded-lg  text-xl font-bold text-white descripcion  hover:scale-105 hover:bg-slate-600" > Descripción</button>
-                        </div>
+                        <button onClick="agregarDescripcion(event)" class="w-[70%] h-[60px] bg-slate-500 rounded-lg mt-4  text-xl font-bold text-white descripcion  hover:scale-105 hover:bg-slate-600"> Descripción</button>
+
                     </div>
 
                     <div class="cuadrilla">
@@ -193,10 +200,7 @@
                         <p class="text-3xl font-bold mt-[10px]"> $59.99 </p>
                         <p class="text-2xl mt-[10px] "> Altavoces inalámbricos compactos con sonido potente y batería de larga duración. </p>
                         <p class="text-2xl font-bold  mt-[10px]"> Cantidad: 60 </p>
-                        <div class="w-[100%] flex justify-center items-center mt-[10px] gap-8">
-                            <button onClick="agregarCarrito(event)" class="w-[50%] h-[30px] bg-slate-500 rounded-lg text-xl font-bold text-white  hover:scale-105 hover:bg-slate-600" > Agregar al carrito </button> 
-                            <button onClick="agregarDescripcion(event)" class=" w-[50%] h-[30px] bg-slate-500 rounded-lg  text-xl font-bold text-white descripcion  hover:scale-105 hover:bg-slate-600" > Descripción</button>
-                        </div>
+                        <button onClick="agregarDescripcion(event)" class="w-[70%] h-[60px] bg-slate-500 rounded-lg mt-4  text-xl font-bold text-white descripcion  hover:scale-105 hover:bg-slate-600"> Descripción</button>
                     </div>
                 </div>    
 
@@ -218,9 +222,19 @@
 
         </main>
         <!-- Pestaña emergente !! Descripción -->
-        <div class="animate-rotate-x hidden w-[70%] lg:w-[60%] 2xl:w-[40%] h-[50%] bg-[url('./assets/background.svg')] rounded-2xl shadow-lg shadow-slate-300 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-200 p-4 flex flex-col flex justify-center items-center z-[999] z-10 p-8 bg-white" id="contenedorDescripcion">
+        <div class="hidden w-[70%] lg:w-[60%] 2xl:w-[40%] h-[50%] bg-[url('./assets/background.svg')] rounded-2xl shadow-lg shadow-slate-300 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-200 p-4 flex flex-col flex justify-center items-center z-[999] z-10 p-8 bg-white" id="contenedorDescripcion">
                         
         </div>  
+        <div class="hidden  w-[70%]  p-8 lg:w-[60%] 2xl:w-[40%] h-[50%] bg-[url('./assets/background.svg')] rounded-2xl shadow-lg shadow-slate-300 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-200 p-4 flex flex-col flex justify-center items-center z-[999] z-10 p-8 bg-white" id="contenedorFactura">
+            <div id="factura" class="w-[100%] h-[50%] overflow-auto">
+
+            </div>
+            <p id="montoPagar" class=" my-4 text-3xl font-bold bg-green-700 p-4 rounded-lg"></p>
+            <div class="w-[100%] flex justify-center items-center gap-4">
+                <button class="w-[40%] h-[40px] bg-slate-500 text-2xl font-bold rounded-lg hover:bg-slate-400 hover:scale-105" id="cerrarFactura">Cancelar</button>
+                <button class="w-[40%] h-[40px] bg-slate-500 text-2xl font-bold rounded-lg hover:bg-slate-400 hover:scale-105">Pagar</button>
+            </div>
+        </div>
 
 
         <!-- Footer -->

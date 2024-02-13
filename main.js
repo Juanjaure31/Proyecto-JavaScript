@@ -259,46 +259,30 @@ const productos = [
 ]
 
 // Variables !!}
+const inputBusqueda = document.getElementById('input')
 const contenedorCarrito = document.getElementById('contenedorCarrito')
+const factura = document.getElementById('factura')
+const montoPagar = document.getElementById('montoPagar')
+document.getElementById('cerrarFactura').addEventListener('click', cerrarFactura)
+contenedorCarrito.addEventListener('click', eliminarProducto)
 document.getElementById('vaciar').addEventListener('click', vaciarCarrito)
 const principal = document.getElementById('principal')
 let contenedor = document.getElementById('contenedor');
 const revelar = document.querySelector('.carrito');
 const contenedorDescripcion = document.getElementById('contenedorDescripcion');
+const contenedorFactura = document.getElementById('contenedorFactura')
 document.getElementById('carrito').addEventListener('click', mostraQuitar);
 let productosCarrito = [];
-let contador = 1;
-
-// Funciones !!
-
-
-function mostrarSeccion(id) {
-    const secciones = document.querySelectorAll('main section');
-    secciones.forEach(seccion => {
-        if (seccion.id === id) {
-            seccion.style.display = 'block';
-        } else {
-            seccion.style.display = 'none';
-        }
-    });
-}
 
 // Manejo de paginación !!
 
-document.getElementById('home').addEventListener('click', () => {
-    mostrarSeccion('seccion1');
-});
-
-document.getElementById('products').addEventListener('click', () => {
-    mostrarSeccion('seccion2');
-});
-
-document.getElementById('products2').addEventListener('click', () => {
-    mostrarSeccion('seccion2');
-});
+document.getElementById('home').addEventListener('click', () => {mostrarSeccion('seccion1');});
+document.getElementById('products').addEventListener('click', () => {mostrarSeccion('seccion2');});
+document.getElementById('products2').addEventListener('click', () => {mostrarSeccion('seccion2');});
 mostrarSeccion('seccion1');
 
-// función para mostrar y quitar el carrito !!
+
+// Funciones !!
 
 function mostrarSeccion(id) {
     const secciones = document.querySelectorAll('main section');
@@ -310,6 +294,19 @@ function mostrarSeccion(id) {
         }
     });
 }
+
+function mostrarSeccion(id) {
+    const secciones = document.querySelectorAll('main section');
+    secciones.forEach(seccion => {
+        if (seccion.id === id) {
+            seccion.style.display = 'block';
+        } else {
+            seccion.style.display = 'none';
+        }
+    });
+}
+
+// función para mostrar y quitar el carrito !!
 
 function mostraQuitar() {
     if (revelar.classList.contains('oculto')) {
@@ -321,54 +318,49 @@ function mostraQuitar() {
     }
 }
 
+const articulos = [];
+
 // Función para agregar elementos al carrito !!
 
 function agregarCarrito(e) {
-    productosCarrito.push({
+    const infoProducto = {
         img: e.target.parentElement.parentElement.querySelector('img:nth-child(1)').src,
         nombre: e.target.parentElement.parentElement.querySelector('p:nth-child(2)').innerText,
         precio: e.target.parentElement.parentElement.querySelector('p:nth-child(3)').innerText,
         cantidad: 1,
-        id: e.target.parentElement.parentElement.querySelector('img:nth-child(1)').getAttribute('data-id')
-    });
+        id: e.target.parentElement.parentElement.querySelector('img:nth-child(1)').getAttribute('id')
+    };
     console.log(e.target.id)
-    localStorage.setItem("carrito", JSON.stringify(productosCarrito));
-    // console.log(localStorage.getItem("carrito"))
 
     console.log(productosCarrito)
 
     // funcion para incrementar la cantidad
-    const existe = productosCarrito.some( item => item.id === productos.id );
+    const existe = productosCarrito.some( item => item.id == infoProducto.id );
     console.log(existe)
-
     if(existe) {
-        // Atualizo la cantidad
-        const items = productosCarrito.map(item => {
-            if( item.id ===  productos.id ) {
-                // console.log('Se incrementa')
-                LimpiarHTML()
+        // Actualizamos la cantidad
+        const items = productosCarrito.map( item => {
+            if(item.id == infoProducto.id) {
                 item.cantidad++
-                return item // retorna el obejto actualizado
+                return item // retorna el objeto actualizado 
             } else {
-                return item // retorna los obejtos que no son duplicados 
+                return item // retorna los objetos que no son duplicados
             }
-        } );
+        }); 
         productosCarrito = [...items]
     } else {
-        // Agregamos curso al carrito 
-        // console.log('Queda igual')
-        productosCarrito = [...productosCarrito]
+        // Agregamos el productos al carrito        
+        productosCarrito = [...productosCarrito, infoProducto]
     }
     // Llamo la funcion carrrito 
     carritoHTML()
+    hayElementos()
 }
 
 function carritoHTML() {
 
     //llamo a la funcion para limpiar el html del carrrito
     LimpiarHTML()
-    // Obtengo los productos del carrito desde el almacenamiento local
-    const productosCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
     productosCarrito.map(articulo => {
         const { img, nombre, precio, cantidad, id } = articulo;
@@ -377,24 +369,138 @@ function carritoHTML() {
         itemCarrito.innerHTML = `
                 <img src="${img}" class="max-w-[70px] max-h-[70px] bg-gradient-to-t from-sky-900 to-blue-950 rounded-full ">
                 <p class="text-lg font-bold max-w-[100px]"> ${nombre} </p>
-                <p class="text-lg font-bold max-w-[100px]"> $${precio} </p>
+                <p class="text-lg font-bold max-w-[100px]"> ${precio} </p>
                 <p class="text-lg font-bold max-w-[100px]"> ${cantidad} </p>
-                <p class="w-[20px] h-[20px] flex justify-center items-center font-bold bg-red-700 rounded-full ">X</p>
-                <p class="hidden"> ${id} </ p>
+                <p id='${id}' class="eliminar w-[20px] h-[20px] cursor-pointer flex justify-center items-center font-bold bg-red-700 hover:bg-red-500 hover:text-white hover:scale-125 rounded-full">X</p>
             `
-    
         contenedorCarrito.appendChild(itemCarrito)
 
-        document.addEventListener('DOMContentLoaded', () => {
-            productosCarrito.JSON.parse(localStorage.getItem('carrito'))
-        })
+        sincronizarStorage()
     })
+}
+// Creando boton para realizar la compra
+
+const pagar = document.getElementById('pagar')
+pagar.addEventListener('click', mostrarFactura)
+
+// agregando factura
+
+function agregarFactura() {
+    // mostrarFactura();
+    // agregarBlur()
+
+    facturaHTML()
+}
+
+function facturaHTML() {
+    // Llamo a la función para limpiar el HTML del carrito
+    LimpiarFacturaHTML();
+    LimpiarMostoPagarHTML()
+
+    let totalPrecio = 0; // Variable para mantener la sumatoria de precios
+
+    productosCarrito.forEach(articulo => {
+        const { img, nombre, precio, cantidad } = articulo;
+        const precioNumerico = parseFloat(precio * cantidad)
+        const itemFactura = document.createElement('div');
+        itemFactura.className = "cuadrillaFactura";
+        itemFactura.innerHTML = `
+            <img src="${img}" class="max-w-[70px] max-h-[70px] bg-gradient-to-t from-sky-900 to-blue-950 rounded-full ">
+            <p class="text-2xl font-bold max-w-[70%]"> ${nombre} </p>
+            <p class="text-2xl font-bold max-w-[70%]"> ${precio * cantidad} </p>
+            <p class="text-2xl font-bold max-w-[70%]">Articulos totales: ${cantidad} </p>
+
+        `;
+        factura.appendChild(itemFactura);
+        
+        totalPrecio += precioNumerico ; // Sumar el precio total de este producto al total
+    });
+
+    // Mostrar la sumatoria total de cantidades en el carrito
+    // const sumatoriaCantidadElement = document.createElement('p');
+    // sumatoriaCantidadElement.textContent = `Sumatoria de Cantidades: ${totalCantidad}`;
+    // factura.appendChild(sumatoriaCantidadElement);
+
+    // Mostrar la sumatoria total de precios en el carrito
+    const sumatoriaPrecioElement = document.createElement('p');
+    sumatoriaPrecioElement.textContent = `Sumatoria de Precios: ${totalPrecio.toFixed(2)}`;
+    factura.appendChild(sumatoriaPrecioElement);
+
+    // Mostrar el monto total a pagar
+    const montoPagarElement = document.createElement('p');
+    montoPagarElement.textContent = `Monto total: ${totalPrecio.toFixed(2)}`;
+    montoPagar.appendChild(montoPagarElement); // supongo que montoPagar es el contenedor correcto, ajusta según necesites
+
+    sincronizarStorage();
+}
+
+function mostrarFactura() {
+    if (contenedorFactura.classList.contains('hidden')) {
+        contenedorFactura.classList.remove('hidden');
+        contenedorFactura.classList.add('block');
+        agregarFactura()
+    }
+}
+
+function cerrarFactura() {
+    contenedorFactura.classList.remove('block');
+    contenedorFactura.classList.add('hidden');
+}
+
+function hayElementos() {
+    if (contenedorCarrito.innerHTML.trim() !== '') {
+        // Ejecutar este código si hay al menos un elemento en el carrito
+        pagar.classList.remove('bg-green-700/70');
+        pagar.classList.add('bg-green-600', 'hover:bg-green-500')
+        pagar.disabled = false;
+    } else {
+        // Ejecutar este código si el carrito está vacío
+        pagar.disabled = true;
+        pagar.classList.add('bg-green-700/70');
+        pagar.classList.remove('bg-green-600', 'hover:bg-green-500')
+    };
+}
+
+// Obteniendo datos del local storage
+
+function sincronizarStorage() {   
+    localStorage.setItem("carrito", JSON.stringify(productosCarrito));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    productosCarrito = JSON.parse( localStorage.getItem('carrito') ) || [];
+
+    carritoHTML()
+})
+
+//  Eliminando productos del carrito
+
+function eliminarProducto(e){
+    if(e.target.classList.contains('eliminar')) {
+        const itemId = e.target.getAttribute('id');
+        const itemIndex = productosCarrito.findIndex(item => item.id === itemId);
+        const modificarHtml = e.target.parentElement.querySelector('p:nth-child(4)');
+
+        if(productosCarrito[itemIndex].cantidad > 1) {
+            productosCarrito[itemIndex].cantidad--;
+            +modificarHtml.innerText--
+        } else{
+            productosCarrito = productosCarrito.filter(item => item.id !== itemId);
+            localStorage.removeItem('carrito')
+        }
+        carritoHTML()
+        hayElementos()
+    }
 }
 
 function vaciarCarrito() {
     productosCarrito = [];
+    localStorage.removeItem('carrito')
     LimpiarHTML()
+    hayElementos()
 }
+
+// Mostrando y cerrando descripción
 
 function mostrarDescripcion() {
     if (contenedorDescripcion.classList.contains('hidden')) {
@@ -408,6 +514,8 @@ function cerrarDescripcion() {
     contenedorDescripcion.classList.add('hidden');
 }
 
+// Agregando y quitando blur
+
 function agregarBlur() {
     if (contenedorDescripcion.classList.contains('block')) {
         principal.classList.add('blur-sm')
@@ -419,7 +527,7 @@ function cerrarBlur() {
 }
 
 
-
+// agregando productos al carrito 
 
 function agregarDescripcion(e) {
     mostrarDescripcion();
@@ -465,7 +573,7 @@ function agregarDescripcion(e) {
     contenedorDescripcion.appendChild(btnElement);
 }
 
-const articulos = [];
+// agregando poductos al contenedor 
 
 function articulosCuadrilla() {
     productos.map(articulo => {
@@ -473,27 +581,86 @@ function articulosCuadrilla() {
         const cuadrilla = document.createElement('div');
         cuadrilla.className = "cuadrilla";
         cuadrilla.innerHTML = `
-                <img src="${img}" data-id="${id}" class="max-w-60 max-h-60 flex justify-center aling-center">
-                <p class="text-2xl font-bold " id="nombre-${contador}"> ${nombre} </p>
-                <p class="text-3xl font-bold mt-[10px]"> $${precio} </p>
+                <img src="${img}" id="${id}" class="max-w-60 max-h-60 flex justify-center aling-center">
+                <p class="text-2xl font-bold"> ${nombre} </p>
+                <p class="text-3xl font-bold mt-[10px]"> ${precio} </p>
                 <p class="text-2xl mt-[10px] "> ${descripcion} </p>
                 <p class="text-2xl font-bold  mt-[10px]"> Cantidad: ${cantidad} </p>
                 <div class="w-[100%] flex justify-center items-center mt-[10px] gap-8">
-                    <button onClick="agregarCarrito(event)" id="${contador}" class="w-[50%] h-[30px] bg-slate-500 rounded-lg text-xl font-bold text-white hover:scale-105 hover:bg-slate-600" > Agregar al carrito </button> 
+                    <button onClick="agregarCarrito(event)" class="w-[50%] h-[30px] bg-slate-500 rounded-lg text-xl font-bold text-white hover:scale-105 hover:bg-slate-600" > Agregar al carrito </button> 
                     <button onClick="agregarDescripcion(event)" class="w-[50%] h-[30px] bg-slate-500 rounded-lg  text-xl font-bold text-white  hover:scale-105 hover:bg-slate-600"  > Descripción</button>
                 </div>
                 `;
-        contador++
         contenedor.appendChild(cuadrilla);
     });
 }
 articulosCuadrilla()
+
+function LimpiarMostoPagarHTML() {
+    while (montoPagar.firstChild) {
+        montoPagar.removeChild(montoPagar.firstChild)
+    }
+}
+articulosCuadrilla()
+function LimpiarFacturaHTML() {
+    while (factura.firstChild) {
+        factura.removeChild(factura.firstChild)
+    }
+}
 
 function LimpiarHTML() {
     while (contenedorCarrito.firstChild) {
         contenedorCarrito.removeChild(contenedorCarrito.firstChild)
     }
 }
+function limpiarNuevoHTML(){
+    while (contenedor.firstChild) {
+        contenedor.removeChild(contenedor.firstChild)
+    }
+}
 
+// Funciones para filtrar la busqueda 
 
+const busquedaNombre = {
+    nombres: ''
+};
 
+inputBusqueda.addEventListener('input',(e) => {
+    busquedaNombre.nombres = e.target.value;
+    filtrarBusqueda()
+});
+
+function filtrarBusqueda() {
+    const resultado = productos.filter(filtrarNombre);
+
+    console.log(resultado)
+}
+
+function filtrarNombre(producto) {
+    const { nombres } = busquedaNombre;
+    if(nombres){
+        return producto.nombre.toLowerCase() === nombres.toLowerCase();
+    }
+    return productos; // Devuelve true si no hay filtro de nombre
+}
+
+function mostrarArticulo(productos) {
+    limpiarNuevoHTML();
+
+    productos.forEach(item => { 
+        const productosHTML = document.createElement('div');
+        productosHTML.innerHTML = `
+            ${item.nombre}
+        `;
+        contenedor.appendChild(productosHTML);
+    });
+}
+
+function noResultado() {
+    limpiarNuevoHTML();
+
+    const noResultado = document.createElement('div');
+    noResultado.classList.add('w-[50%]', 'h-[30%]', 'bg-red-700', 'text-white', 'rounded-xl', 'text-3xl');
+    noResultado.textContent = 'No hay Resultados de auto que busca';
+    contenedor.appendChild(noResultado);
+}
